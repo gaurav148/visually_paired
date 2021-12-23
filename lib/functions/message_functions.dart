@@ -5,7 +5,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import 'helper_functions.dart';
 
-
+int a = 5;
+Iterable<Contact> contactList = [];
 searchContactForMessage(String name) async {
     debugPrint(name);
     Iterable<Contact> contacts = await ContactsService.getContacts(query : name);
@@ -14,21 +15,42 @@ searchContactForMessage(String name) async {
         AlanVoice.playText("Contact found!");
         callProjectApi("messageContactUsingAPI", {"name" : name, "flag": "1"});
       }else{
-        AlanVoice.playText("Do you want to text ");
+        a = 20;
+        contactList = contacts;
+        AlanVoice.playText("Multiple contacts found. To text");
+        int i=1;
         for(var contact in contacts){
-          if(contact != contacts.last){
-            AlanVoice.playText(contact.displayName.toString() + " or ");
-          }else{
-            AlanVoice.playText(contact.displayName.toString());
-          }    
+          AlanVoice.playText(contact.displayName.toString() + ", say " + i.toString());
+          i++;  
         }
       callProjectApi("messageContactUsingAPI", {"name" : name, "flag": "2"});
       }
       
   }else{
-    AlanVoice.playText("No such contact found!");
+    AlanVoice.playText("No such contact found! Can you please spell the first name.");
   }
 } 
+
+
+multipleContactCase(String number){
+  Map<String,String> m = {"fo":"4","to":"2"};
+
+    int num = int.parse(number);
+    int i = 1;
+    for(var contact in contactList){
+      if(i==num){
+        AlanVoice.playText("Single Contact found!");
+        AlanVoice.playText("Contact name is "+ contact.displayName.toString());
+        callProjectApi("messageContactUsingAPI", {"name" : contact.displayName.toString(), "flag": "1"});
+        break;
+      }
+      i++;
+      
+    }
+  
+}
+
+
 
 
   messageContact(String inputMessage, String name, Telephony telephony) async {

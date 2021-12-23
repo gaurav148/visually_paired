@@ -84,6 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
         debugPrint("Search contact for message function exectued");
         searchContactForMessage(response["name"]);
         break;
+      
+      case "multipleContactCase":
+        debugPrint("Multiple contact case executed");
+        multipleContactCase(response["number"]);
+        break;
 
       case "messageContact":
         debugPrint("Message contact func executed");
