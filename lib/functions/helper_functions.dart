@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:alan_voice/alan_voice.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import  'package:string_similarity/string_similarity.dart';
 
@@ -22,3 +22,5 @@ Map<String,String> checkStringSimilarity(String stringName, List<String> stringL
 String concatenateString(String input){
   return input.replaceAll(" ", "");
 }
+
+

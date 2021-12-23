@@ -25,25 +25,52 @@ searchContactForMessage(String name) async {
       callProjectApi("messageContactUsingAPI", {"name": name, "flag": "2"});
     }
   } else {
-    AlanVoice.playText(
-        "No such contact found! Can you please spell the first name.");
+    AlanVoice.playText("No such contact found! Can you please spell the first name.");
+    callProjectApi("spellNameAPI",{});
+  }
+
+}
+
+checkSpelledName(String spelledName) async {
+  spelledName = concatenateString(spelledName);
+  Iterable<Contact> contacts = await ContactsService.getContacts(withThumbnails: false);
+  List<String> firstNameList = [];
+  for(final contact in contacts){
+    firstNameList.add(contact.givenName.toString());
+    debugPrint(contact.givenName.toString());
+  }
+  
+  var output = checkStringSimilarity(spelledName, firstNameList);
+  if(double.parse(output["rating"]!) >=0.5){
+    debugPrint(output["rating"]);
+    AlanVoice.playText("Your contact name is "+ output["bestMatch"]!);
+    searchContactForMessage(output["bestMatch"]!);
+  }else{
+    AlanVoice.playText("I didn't get that! Can you spell it again?");
+    callProjectApi("spellNameAPI",{});
   }
 }
 
 multipleContactCase(String number) {
   Map<String, String> m = {"fo": "4", "to": "2"};
-
-  int num = int.parse(number);
-  int i = 1;
-  for (var contact in multipleNameList) {
-    if (i == num) {
-      AlanVoice.playText("Contact name is " + contact.displayName.toString());
-      callProjectApi("messageContactUsingAPI",
-          {"name": contact.displayName.toString(), "flag": "1"});
-      break;
+  try{
+    int num = int.parse(number);
+    int i = 1;
+    for (var contact in multipleNameList) {
+      if (i == num) {
+        AlanVoice.playText("Contact name is " + contact.displayName.toString());
+        callProjectApi("messageContactUsingAPI",
+            {"name": contact.displayName.toString(), "flag": "1"});
+        break;
+      }
+      i++;
     }
-    i++;
+  }catch(e){
+    debugPrint(e.toString());
+    AlanVoice.playText("Can you please repeat the number?");
+    callProjectApi("messageContactUsingAPI", { "flag": "2"});
   }
+ 
 }
 
 messageContact(String inputMessage, String name, Telephony telephony) async {

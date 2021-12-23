@@ -5,6 +5,7 @@ import 'package:telephony/telephony.dart';
 import '../functions/calculator_functions.dart';
 import '../functions/call_functions.dart';
 import '../functions/message_functions.dart';
+import '../functions/helper_functions.dart';
 
 
 
@@ -93,6 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
       case "messageContact":
         debugPrint("Message contact func executed");
         messageContact(response["inputMessage"], response["name"], telephony);
+        break;
+
+      case "checkSpelledName":
+        debugPrint("Spelling check func executed");
+        checkSpelledName(response["spelledName"]);
         break;
 
       default:
