@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/MyHomePage.dart';
-
+import 'pages/MyOptions.dart';
 
 
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Visually Paired'),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
