@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'pages/MyHomePage.dart';
-import 'pages/MyOptions.dart';
-
 
 
 void main() {

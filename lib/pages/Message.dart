@@ -1,6 +1,12 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
 import '../functions/helper_functions.dart';
+import '../functions/message_functions.dart';
+
+
+
 class Message extends StatefulWidget {
   const Message({ Key? key }) : super(key: key);
 
@@ -8,10 +14,12 @@ class Message extends StatefulWidget {
   _MessageState createState() => _MessageState();
 }
 
-class _MessageState extends State<Message> {
+String printName = "";
 
+class _MessageState extends State<Message> {
+  
+  bool selected = false;
   _MessageState(){
-    debugPrint("Hua dekh.");
     AlanVoice.activate();
     callProjectApi("onTapMessage", {});
   }
@@ -25,10 +33,19 @@ class _MessageState extends State<Message> {
         return true;
       },
       child: const Scaffold(
+        backgroundColor: Colors.yellow,
         body: Center(
-          child: Text("Message")
-        ),
+          child: Text(
+            "Message",
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          )
+        )
       ),
     );
   }
+  
 }
+
+
+
+

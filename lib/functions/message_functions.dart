@@ -5,6 +5,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:telephony/telephony.dart';
 import 'helper_functions.dart';
 
+String finalName = "";
+String finalMessage = "";
+
+
 Iterable<Contact> multipleNameList = [];
 searchContactForMessage(String name) async {
   debugPrint(name);
@@ -12,6 +16,7 @@ searchContactForMessage(String name) async {
   if (contacts.isNotEmpty) {
     if (contacts.length == 1) {
       AlanVoice.playText("Contact found!");
+      finalName = contacts.first.displayName.toString();
       callProjectApi("messageContactUsingAPI", {"name": name, "flag": "1"});
     } else {
       multipleNameList = contacts;
@@ -51,6 +56,7 @@ checkSpelledName(String spelledName) async {
   }
 }
 
+
 multipleContactCase(String number) {
   Map<String, String> m = {"fo": "4", "to": "2"};
   try{
@@ -59,6 +65,7 @@ multipleContactCase(String number) {
     for (var contact in multipleNameList) {
       if (i == num) {
         AlanVoice.playText("Contact name is " + contact.displayName.toString());
+        finalName = contact.displayName.toString();
         callProjectApi("messageContactUsingAPI",
             {"name": contact.displayName.toString(), "flag": "1"});
         break;
@@ -72,6 +79,7 @@ multipleContactCase(String number) {
   }
  
 }
+
 
 messageContact(String inputMessage, String name, Telephony telephony) async {
   Iterable<Contact> contacts = await ContactsService.getContacts(query: name);
@@ -89,5 +97,6 @@ messageContact(String inputMessage, String name, Telephony telephony) async {
           message: inputMessage);
     }
     AlanVoice.playText("Done!");
+    finalName = "";
   }
 }
