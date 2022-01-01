@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:alan_voice/alan_voice.dart';
+import 'package:visually_paired/pages/Calculator.dart';
+import 'package:visually_paired/pages/Call.dart';
+import '../functions/helper_functions.dart';
 import 'Message.dart';
 
 class MyOptions extends StatefulWidget {
@@ -13,7 +16,10 @@ class _MyOptionsState extends State<MyOptions> {
 
   var colors = [Colors.red, Colors.yellow, Colors.purple, Colors.green];
   var options = ["Call", "Message", "Calculate","Detect Currency"];
-  var pages = [const Message(), const Message(), const Message(), const Message()];
+  var pages = [const Call(), 
+               Message(displayNamestream: displayNameController.stream, displayMessageStream: displayMessageController.stream,), 
+               const Calculate(), 
+               Message(displayNamestream: displayNameController.stream, displayMessageStream: displayMessageController.stream,)];
 
   @override
   Widget build(BuildContext context) {

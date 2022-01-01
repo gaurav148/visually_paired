@@ -17,6 +17,7 @@ searchContactForMessage(String name) async {
     if (contacts.length == 1) {
       AlanVoice.playText("Contact found!");
       finalName = contacts.first.displayName.toString();
+      displayNameController.add(finalName);
       callProjectApi("messageContactUsingAPI", {"name": name, "flag": "1"});
     } else {
       multipleNameList = contacts;
@@ -66,6 +67,7 @@ multipleContactCase(String number) {
       if (i == num) {
         AlanVoice.playText("Contact name is " + contact.displayName.toString());
         finalName = contact.displayName.toString();
+        displayNameController.add(finalName);
         callProjectApi("messageContactUsingAPI",
             {"name": contact.displayName.toString(), "flag": "1"});
         break;
@@ -82,6 +84,7 @@ multipleContactCase(String number) {
 
 
 messageContact(String inputMessage, String name, Telephony telephony) async {
+  displayMessageController.add(inputMessage);
   Iterable<Contact> contacts = await ContactsService.getContacts(query: name);
   if (contacts.isNotEmpty) {
     for (final contact in contacts) {
@@ -96,6 +99,7 @@ messageContact(String inputMessage, String name, Telephony telephony) async {
           to: contacts.first.phones!.first.value.toString(),
           message: inputMessage);
     }
+    
     AlanVoice.playText("Done!");
     finalName = "";
   }

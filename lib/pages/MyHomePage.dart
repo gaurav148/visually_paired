@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:alan_voice/alan_voice.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:telephony/telephony.dart';
+import 'package:visually_paired/pages/Call.dart';
 import 'package:visually_paired/pages/Message.dart';
 import 'package:visually_paired/pages/MyOptions.dart';
 import '../functions/calculator_functions.dart';
@@ -86,9 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
       case "accessContacts":
       if(response["value"] == "message"){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const Message()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Message(displayNamestream: displayNameController.stream, 
+                                                                               displayMessageStream: displayMessageController.stream)));
       }else{
         debugPrint("Call page called");
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const Call()));
       }
         debugPrint("Access Contacts function executed");
         accessContacts();

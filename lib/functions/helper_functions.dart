@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:alan_voice/alan_voice.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import  'package:string_similarity/string_similarity.dart';
+import 'dart:async';
+
+StreamController<String> displayNameController = StreamController<String>.broadcast();
+StreamController<String> displayMessageController = StreamController<String>.broadcast();
 
 callProjectApi(String funcName, Map<String, Object> data) {
     /// Providing any params with json
