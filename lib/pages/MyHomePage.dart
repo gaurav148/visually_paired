@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alan_voice/alan_voice.dart';
 import 'package:telephony/telephony.dart';
 import 'package:visually_paired/pages/Call.dart';
+import 'package:visually_paired/pages/Currency.dart';
 import 'package:visually_paired/pages/Message.dart';
 import 'package:visually_paired/pages/MyOptions.dart';
 import '../functions/calculator_functions.dart';
@@ -90,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                displayMessageStream: displayMessageController.stream)));
       }else{
         debugPrint("Call page called");
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const Call()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Call(displayNamestream: displayNameController.stream)));
       }
         debugPrint("Access Contacts function executed");
         accessContacts();
@@ -106,9 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
         searchContactForMessage(response["name"]);
         break;
       
-      case "multipleContactCase":
-        debugPrint("Multiple contact case executed");
-        multipleContactCase(response["number"]);
+      case "multipleContactCaseForMessage":
+        debugPrint("Multiple contact case for message executed");
+        multipleContactCaseForMessage(response["number"]);
+        break;
+
+      case "multipleContactCaseForCall":
+        debugPrint("Multiple contact case for call executed");
+        multipleContactCaseForCall(response["number"]);
         break;
 
       case "messageContact":
@@ -116,10 +122,26 @@ class _MyHomePageState extends State<MyHomePage> {
         messageContact(response["inputMessage"], response["name"], telephony);
         break;
 
-      case "checkSpelledName":
+      case "checkSpelledNameForText":
         debugPrint("Spelling check func executed");
-        checkSpelledName(response["spelledName"]);
+        checkSpelledNameForText(response["spelledName"]);
         break;
+
+      case "checkSpelledNameForCall":
+        debugPrint("Spelling check func executed");
+        checkSpelledNameForCall(response["spelledName"]);
+        break;
+      
+      case "exit":
+        debugPrint("Exit command called");
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const MyOptions()));
+        break;
+      
+      case "detectCurrency":
+        debugPrint("Currency detection command called");
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const Currency()));
+        break;
+      
 
       default:
         debugPrint("no match found");

@@ -32,12 +32,12 @@ searchContactForMessage(String name) async {
     }
   } else {
     AlanVoice.playText("No such contact found! Can you please spell the first name.");
-    callProjectApi("spellNameAPI",{});
+    callProjectApi("spellNameAPI",{"flag": "text"});
   }
 
 }
 
-checkSpelledName(String spelledName) async {
+checkSpelledNameForText(String spelledName) async {
   spelledName = concatenateString(spelledName);
   Iterable<Contact> contacts = await ContactsService.getContacts(withThumbnails: false);
   List<String> firstNameList = [];
@@ -53,12 +53,12 @@ checkSpelledName(String spelledName) async {
     searchContactForMessage(output["bestMatch"]!);
   }else{
     AlanVoice.playText("I didn't get that! Can you spell it again?");
-    callProjectApi("spellNameAPI",{});
+    callProjectApi("spellNameAPI",{"flag": "text"});
   }
 }
 
 
-multipleContactCase(String number) {
+multipleContactCaseForMessage(String number) {
   Map<String, String> m = {"fo": "4", "to": "2"};
   try{
     int num = int.parse(number);

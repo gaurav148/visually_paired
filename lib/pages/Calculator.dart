@@ -27,6 +27,7 @@ class _CalculateState extends State<Calculate> {
       onWillPop: () async{
         debugPrint("Popping from Calculate.dart");
         callProjectApi("resolve", {});
+        AlanVoice.deactivate();
         return true;
       },
       child: const Scaffold(

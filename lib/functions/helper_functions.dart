@@ -21,7 +21,6 @@ Map<String,String> checkStringSimilarity(String stringName, List<String> stringL
   return {"bestMatch": matches.bestMatch.target!, "rating":matches.bestMatch.rating.toString()};
 }
 
-
 String concatenateString(String input){
   return input.replaceAll(" ", "");
 }

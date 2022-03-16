@@ -6,6 +6,7 @@ import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
 import '../functions/helper_functions.dart';
 import '../functions/message_functions.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 
 
@@ -24,7 +25,7 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   
   bool selected = false;
-  String finalName = "";
+  String finalName = "Whom do you want to text?";
   String finalMessage = "";
   late StreamSubscription<String> displayNameStreamSubscription;
   late StreamSubscription<String> displayMessageStreamSubscription;
@@ -43,7 +44,6 @@ class _MessageState extends State<Message> {
     callProjectApi("onTapMessage", {});
     debugPrint("Message initState called");
   }
-
 
 
   void setDisplayName(String name){
@@ -65,24 +65,39 @@ class _MessageState extends State<Message> {
         displayNameStreamSubscription.cancel();
         debugPrint("Popping from message.dart");
         callProjectApi("resolve", {});
+        AlanVoice.deactivate();
         return true;
       },
       child: Scaffold(
         backgroundColor: Colors.yellow,
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                finalName,
-                style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                finalMessage,
-                style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-            ],
-          )
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                FadeAnimatedText(finalName),
+                FadeAnimatedText(finalMessage),
+              ],
+              // isRepeatingAnimation : false
+            ),
+          ),
+          
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       finalName,
+          //       style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          //     ),
+          //     Text(
+          //       finalMessage,
+          //       style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+          //     ),
+          //   ],
+          // )
         )
       ),
     );
