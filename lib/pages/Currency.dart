@@ -6,33 +6,24 @@ import '../functions/helper_functions.dart';
 import 'package:camera/camera.dart';
 
 class Currency extends StatefulWidget {
-  const Currency({ Key? key }) : super(key: key);
-  
+  final CameraDescription firstCamera;
+  const Currency({ Key? key, required this.firstCamera}) : super(key: key);
   @override
   _CurrencyState createState() => _CurrencyState();
 }
 
 class _CurrencyState extends State<Currency> {
   late CameraDescription firstCamera;
+
   @override
   void initState() {
     super.initState();
-
-    getCamera();
-
     AlanVoice.activate();
     callProjectApi("onTapCurrency", {});
     debugPrint("Currency initState called");
   }
 
-  getCamera() async{
-    WidgetsFlutterBinding.ensureInitialized();
-    final cameras = await availableCameras();
-    debugPrint("The list of camers are: "+cameras.toString());
-    firstCamera = cameras.first;
-    debugPrint("first camera is :  "+firstCamera.toString());
 
-  }
 
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -44,7 +35,7 @@ class _CurrencyState extends State<Currency> {
       },
       child: TakePictureScreen(
           // Pass the appropriate camera to the TakePictureScreen widget.
-          camera: firstCamera,
+          camera: widget.firstCamera,
         ),
     );
   }

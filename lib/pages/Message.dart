@@ -23,7 +23,6 @@ class Message extends StatefulWidget {
 
 
 class _MessageState extends State<Message> {
-  
   bool selected = false;
   String finalName = "Whom do you want to text?";
   String finalMessage = "";

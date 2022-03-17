@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:alan_voice/alan_voice.dart';
 import 'package:telephony/telephony.dart';
@@ -22,6 +23,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int temp = 0;
   bool isAlanActive = false;
+  late CameraDescription firstCamera;
   final Telephony telephony = Telephony.instance;
   _MyHomePageState() {
     //init Alan with sample project id
@@ -139,7 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
       
       case "detectCurrency":
         debugPrint("Currency detection command called");
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const Currency()));
+        getCamera();
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Currency(firstCamera: firstCamera)));
         break;
       
 
@@ -149,6 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+
+    getCamera() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    final cameras = await availableCameras();
+    debugPrint("The list of camers are: "+cameras.toString());
+    firstCamera = cameras.first;
+    debugPrint("first camera is :  "+firstCamera.toString());
+  }
 
 
 }
