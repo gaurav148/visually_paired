@@ -2,8 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
+import 'package:visually_paired/pages/classifier_float.dart';
 import '../functions/helper_functions.dart';
 import 'package:camera/camera.dart';
+import 'package:image/image.dart' as img;
+import 'classifier.dart';
+import 'classifier_quant.dart';
 
 class Currency extends StatefulWidget {
   final CameraDescription firstCamera;
@@ -109,12 +115,44 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   }
 }
 
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
+class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
+  const DisplayPictureScreen({ Key? key, required this.imagePath }) : super(key: key);
 
-  const DisplayPictureScreen({Key? key, required this.imagePath})
-      : super(key: key);
+  @override
+  _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
+}
+
+class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+  late Classifier _classifier;
+  File? _image;
+  var logger = Logger();
+  Category? category;
+
+  @override
+  void initState() {
+    super.initState();
+    _classifier = ClassifierFloat();
+    
+  }
+
+    getImage() async {
+    //final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(widget.imagePath);
+      _predict();
+    });
+  }
+
+  void _predict() async {
+    img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
+    var pred = _classifier.predict(imageInput);
+
+    setState(() {
+      category = pred;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +160,19 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Column(
+        children: [
+          Image.file(File(widget.imagePath)),
+          FloatingActionButton(onPressed: getImage),
+          Text(category != null ? category!.label : '',),
+          Text(
+            category != null
+                ? 'Confidence: ${category!.score.toStringAsFixed(3)}'
+                : '',
+            style: const TextStyle(fontSize: 16),
+          ),
+        ],
+      ),
     );
   }
 }
