@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:alan_voice/alan_voice.dart';
 import 'package:telephony/telephony.dart';
+import 'package:visually_paired/pages/Calculator.dart';
 import 'package:visually_paired/pages/Call.dart';
 import 'package:visually_paired/pages/Currency.dart';
 import 'package:visually_paired/pages/Message.dart';
@@ -85,7 +86,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
       case "calculation":
         debugPrint("calculation case executed");
-        calculateInput(response["value"]);
+        if(response["value"] == "CalculateByVoice"){
+            Navigator.push(context,MaterialPageRoute(builder: (context) => Calculate(displayValuestream: displayValueController.stream, displayTextstream: displayTextController.stream), ));
+        }else{
+          calculateInput(response["value"]);
+        }
+        
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => Calculate(displayValuestream: displayValueController.stream, displayTextstream: displayTextController.stream), ));
+        
         break;
 
       case "accessContacts":

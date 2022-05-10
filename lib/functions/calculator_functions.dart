@@ -1,7 +1,9 @@
 import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
+import 'package:visually_paired/functions/helper_functions.dart';
 
 calculateInput(String input) {
+  displayTextController.add(input);
     //50 + 30
     int length = input.length;
     int temp = 0;
@@ -64,4 +66,5 @@ calculateInput(String input) {
     }
 
     AlanVoice.playText("Your answer is " + finalAnswer);
+    displayValueController.add(finalAnswer);
   }

@@ -20,7 +20,7 @@ class Call extends StatefulWidget {
 class _CallState extends State<Call> {
   
   bool selected = false;
-  String finalName = "";
+  String finalName = "Whom do you want to call?";
   late StreamSubscription<String> displayNameStreamSubscription;
 
   void initState() {
@@ -28,6 +28,8 @@ class _CallState extends State<Call> {
     displayNameStreamSubscription = widget.displayNamestream.listen((name) {
       setDisplayName(name);
     });
+
+    
     
     AlanVoice.activate();
     callProjectApi("onTapCall", {});
@@ -44,6 +46,7 @@ class _CallState extends State<Call> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
+        displayNameStreamSubscription.cancel();
         debugPrint("Popping from call.dart");
         callProjectApi("resolve", {});
         AlanVoice.deactivate();

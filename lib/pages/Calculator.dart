@@ -24,9 +24,7 @@ class _CalculateState extends State<Calculate> {
   late StreamSubscription<String> displayValuestreamSubscription;
   late StreamSubscription<String> displayTextstreamSubscription;
   bool selected = false;
-  _CalculateState(){
-    AlanVoice.activate();
-  }
+  
 
   void initState() {
     super.initState();
@@ -37,7 +35,6 @@ class _CalculateState extends State<Calculate> {
     displayValuestreamSubscription = widget.displayValuestream.listen((value) {
       setDisplayValue(value);
     });
-    
     
     AlanVoice.activate();
     callProjectApi("onTapCalculate", {});

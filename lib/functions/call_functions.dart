@@ -29,7 +29,8 @@ searchContact(String name) async {
       debugPrint(contacts.length.toString());
       if (contacts.length == 1) {
         debugPrint("Single Contact found");
-      AlanVoice.playText("Contact found!");
+      finalName = contacts.first.displayName.toString();
+      displayNameController.add(finalName);
       bool? res = await FlutterPhoneDirectCaller.callNumber(contacts.first.phones!.first.value.toString());
     } else {
       debugPrint("Multiple Contact found");
@@ -45,7 +46,7 @@ searchContact(String name) async {
       callProjectApi("callContactUsingAPI", {});
     }
     
-    bool? res = await FlutterPhoneDirectCaller.callNumber(contacts.first.phones!.first.value.toString());
+    //bool? res = await FlutterPhoneDirectCaller.callNumber(contacts.first.phones!.first.value.toString());
     // debugPrint(res.toString());
 
     }else{
@@ -84,9 +85,9 @@ multipleContactCaseForCall(String number) async {
     int i = 1;
     for (var contact in multipleNameList) {
       if (i == num) {
-        AlanVoice.playText("Contact name is " + contact.displayName.toString());
+        //AlanVoice.playText("Contact name is " + contact.displayName.toString());
         finalName = contact.displayName.toString();
-        // displayNameController.add(finalName);
+        displayNameController.add(finalName);
         bool? res = await FlutterPhoneDirectCaller.callNumber(contact.phones!.first.value.toString());
         debugPrint(res.toString());
         break;
