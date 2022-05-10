@@ -93,7 +93,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: SizedBox(
+          height: double.infinity,
+          width: MediaQuery.of(context).size.width,
+          child: FloatingActionButton(
+           backgroundColor: Colors.transparent,
+            shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
@@ -108,9 +114,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           } catch (e) {
             debugPrint(e.toString());
           }
+          
         },
         child: const Icon(Icons.camera_alt),
       ),
+    )
     );
   }
 }
@@ -132,8 +140,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   @override
   void initState() {
     super.initState();
+    AlanVoice.playText("Tap on the screen for results");
     _classifier = ClassifierFloat();
-    
+    getImage();
   }
 
     getImage() async {
@@ -152,6 +161,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     setState(() {
       category = pred;
     });
+    AlanVoice.playText(category!.label);
   }
 
   @override
@@ -162,15 +172,34 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       // constructor with the given path to display the image.
       body: Column(
         children: [
-          Image.file(File(widget.imagePath)),
-          FloatingActionButton(onPressed: getImage),
-          Text(category != null ? category!.label : '',),
-          Text(
-            category != null
-                ? 'Confidence: ${category!.score.toStringAsFixed(3)}'
-                : '',
-            style: const TextStyle(fontSize: 16),
-          ),
+          GestureDetector(
+              onTap: getImage,
+              child: Container(
+                color: Colors.transparent,
+                padding: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height-94,
+                // Change button text when light changes state.
+                child: Center(
+                    child: Column(
+                      children: [
+                        Image.file(File(widget.imagePath)),
+                        const SizedBox(height: 50,),
+                        Text(
+                          category != null ? category!.label : '',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                        // Text(
+                        //   category != null
+                        //       ? 'Confidence: ${category!.score.toStringAsFixed(3)}'
+                        //       : '',
+                        //   style: const TextStyle(fontSize: 16),
+                        // ),
+                      ],
+                    )
+                ),
+              ),
+            ),
         ],
       ),
     );
