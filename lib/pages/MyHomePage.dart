@@ -6,6 +6,7 @@ import 'package:visually_paired/pages/Call.dart';
 import 'package:visually_paired/pages/Currency.dart';
 import 'package:visually_paired/pages/Message.dart';
 import 'package:visually_paired/pages/MyOptions.dart';
+import 'package:visually_paired/pages/twitter.dart';
 import '../functions/calculator_functions.dart';
 import '../functions/call_functions.dart';
 import '../functions/message_functions.dart';
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-    _handleCommand(Map<String, dynamic> response) {
+    _handleCommand(Map<String, dynamic> response)  async {
     switch (response["command"]) {
       case "add":
         var ans = int.parse(response["num1"]) + int.parse(response["num2"]);
@@ -143,6 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
         debugPrint("Currency detection command called");
         getCamera();
         Navigator.push(context,MaterialPageRoute(builder: (context) => Currency(firstCamera: firstCamera)));
+        break;
+
+      case "tweet":
+        debugPrint("Tweet detected");
+        List<String> tweets = await twitterAPI();
+        Navigator.push(context,MaterialPageRoute(builder: (context) => TwitterAPI(tweets: tweets)));
         break;
       
 
