@@ -74,29 +74,24 @@ class _MessageState extends State<Message> {
             style: const TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
+              color: Colors.black
             ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                FadeAnimatedText(finalName),
-                FadeAnimatedText(finalMessage),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  finalName,
+                  style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  finalMessage,
+                  style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                ),
               ],
-              // isRepeatingAnimation : false
             ),
           ),
           
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Text(
-          //       finalName,
-          //       style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          //     ),
-          //     Text(
-          //       finalMessage,
-          //       style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          //     ),
-          //   ],
-          // )
+          
         )
       ),
     );

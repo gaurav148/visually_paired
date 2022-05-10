@@ -98,6 +98,13 @@ class _MyHomePageState extends State<MyHomePage> {
         debugPrint("Access Contacts function executed");
         accessContacts();
         break;
+      
+      // case "goToHomePage":
+      // Navigator.pushNamedAndRemoveUntil(context, "/newRouteName", (r) => false);
+      //   Navigator.push(context,MaterialPageRoute(builder: (context) => Message(displayNamestream: displayNameController.stream, 
+      //                                                                          displayMessageStream: displayMessageController.stream)));
+      //   debugPrint("reached home page");
+      //   break;
 
       case "callContact":
         debugPrint("Calling contact function executed");

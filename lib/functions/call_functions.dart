@@ -26,6 +26,7 @@ searchContact(String name) async {
     debugPrint(name);
     Iterable<Contact> contacts = await ContactsService.getContacts(query : name);
     if(contacts.isNotEmpty){
+      debugPrint(contacts.length.toString());
       if (contacts.length == 1) {
         debugPrint("Single Contact found");
       AlanVoice.playText("Contact found!");

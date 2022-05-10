@@ -6,6 +6,8 @@ import 'dart:async';
 
 StreamController<String> displayNameController = StreamController<String>.broadcast();
 StreamController<String> displayMessageController = StreamController<String>.broadcast();
+StreamController<String> displayValueController = StreamController<String>.broadcast();
+StreamController<String> displayTextController = StreamController<String>.broadcast();
 
 callProjectApi(String funcName, Map<String, Object> data) {
     /// Providing any params with json

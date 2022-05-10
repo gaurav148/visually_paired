@@ -22,7 +22,7 @@ class _MyOptionsState extends State<MyOptions> {
   var options = ["Call", "Message", "Calculate","Detect Currency"];
   var pages = [Call(displayNamestream: displayNameController.stream), 
                Message(displayNamestream: displayNameController.stream, displayMessageStream: displayMessageController.stream,), 
-               const Calculate(), 
+               Calculate(displayValuestream: displayValueController.stream, displayTextstream: displayTextController.stream), 
                ];
 
   @override
