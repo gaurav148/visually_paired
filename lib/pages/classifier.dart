@@ -20,9 +20,9 @@ abstract class Classifier {
   late TfLiteType _inputType;
   late TfLiteType _outputType;
 
-  final String _labelsFileName = 'assets/labels.txt';
+  final String _labelsFileName = 'assets/LABELSS.txt';
 
-  final int _labelsLength = 5;
+  final int _labelsLength = 7;
 
   late var _probabilityProcessor;
 

@@ -74,6 +74,7 @@ class _MessageState extends State<Message> {
             style: const TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
+              color: Colors.black
             ),
             child: AnimatedTextKit(
               animatedTexts: [
