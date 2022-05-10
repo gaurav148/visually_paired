@@ -43,6 +43,7 @@ dependencies:
   tflite_flutter_helper: ^0.3.1
   collection: ^1.15.0
   logger: ^1.1.0
+  http: ^0.13.4
 
 
   # The following adds the Cupertino Icons font to your application.
